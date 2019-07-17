@@ -1419,7 +1419,7 @@ function (_React$Component) {
               case 4:
                 order = _context.sent;
                 newrelic.interaction().setAttribute('userId', me.id);
-                newrelic.interaction().setAttribute('cartTotal', "".concat(totalItems(me.cart)));
+                newrelic.interaction().setAttribute('cartTotal', "".concat(Object(_lib_calcTotalPrice__WEBPACK_IMPORTED_MODULE_8__["default"])(me.cart)));
                 next_router__WEBPACK_IMPORTED_MODULE_4___default.a.push({
                   pathname: '/order',
                   query: {

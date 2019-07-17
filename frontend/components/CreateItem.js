@@ -70,8 +70,12 @@ export default class CreateItem extends Component {
         {(createItem, {loading, error}) => (
             <Form onSubmit={async e => {
                 e.preventDefault();
+                const price = e.target.price.value;
                 const res = await createItem();
                 console.log(res)
+                // Added custom page action
+                // Passing product price and id
+                newrelic.addPageAction('upload_product', {price: price, id: res.data.createItem.id})
                 Router.push({
                     pathname: '/item',
                     query: {id: res.data.createItem.id}

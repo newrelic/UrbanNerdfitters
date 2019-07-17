@@ -38,7 +38,7 @@ class TakeMyMoney extends React.Component {
     })
     .catch(err => alert(err.message));
     newrelic.interaction().setAttribute('userId', me.id);
-    newrelic.interaction().setAttribute('cartTotal', `${totalItems(me.cart)}`);
+    newrelic.interaction().setAttribute('cartTotal', `${calcTotalPrice(me.cart)}`);
     Router.push({
       pathname: '/order',
       query: { id: order.data.createOrder.id }
