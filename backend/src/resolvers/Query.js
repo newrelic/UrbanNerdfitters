@@ -6,6 +6,7 @@ const Query = {
     item: forwardTo('db'),
     itemsConnection: forwardTo('db'),
     me(parent, args, ctx, info) {
+      newrelic.setControllerName('getCurrentUser', ['query'])
         // check if there is a current user ID
         if (!ctx.request.userId) {
           return null;
@@ -18,6 +19,7 @@ const Query = {
         );
     },
     async users(parent, args, ctx, info){
+      newrelic.setControllerName('getAllUsers', ['query'])
         //Check if logged in
         if(!ctx.request.userId) {
             throw new Error('You must be logged in')
@@ -29,6 +31,7 @@ const Query = {
     },
 
   async order(parent, args, ctx, info) {
+    newrelic.setControllerName('getSingleOrder', ['query'])
     // 1. Make sure they are logged in
     if (!ctx.request.userId) {
       throw new Error('You arent logged in!');
@@ -53,6 +56,7 @@ const Query = {
     return order;
   },
   orders(parent, args, ctx, info){
+    newrelic.setControllerName('getAllOrders', ['query'])
     //get user id
     const {userId} = ctx.request
     if(!userId){

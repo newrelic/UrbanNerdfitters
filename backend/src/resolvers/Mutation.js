@@ -42,6 +42,7 @@ const mutations = {
         }, info);
     },
     async deleteItem(parent, args, ctx, info){
+        newrelic.setControllerName('deleteItem', ['mutation'])
         const where = {id: args.id};
         // Find Item
         const item = await ctx.db.query.item({where}, `{id title user{id}}`)
@@ -55,6 +56,7 @@ const mutations = {
         return ctx.db.mutation.deleteItem({where}, info)
     },
     async signup(parent, args, ctx, info){
+        newrelic.setControllerName('signUp', ['mutation'])
         // make email address lower case
         args.email = args.email.toLowerCase();
         // hash password
@@ -79,6 +81,7 @@ const mutations = {
 
     },
     async signin(parent, {email, password}, ctx, info){
+        newrelic.setControllerName('signIn', ['mutation'])
         // Check for user with email
         const user = await ctx.db.query.user({where: {email}});
         if(!user) {
@@ -100,10 +103,12 @@ const mutations = {
         return user;
     },
     signout(parent, args, ctx, info){
+        newrelic.setControllerName('signOut', ['mutation'])
         ctx.response.clearCookie('token');
         return {messgae: 'Peace out!'}
     },
     async requestReset(parent, args, ctx, info){
+        newrelic.setControllerName('requestPasswordReset', ['mutation'])
         // Check if real user
         const user = await ctx.db.query.user({where: {email: args.email}})
         if(!user) {
@@ -127,6 +132,7 @@ const mutations = {
         return {messgae: "thanks!"};
     },
     async resetPassword(parent, args, ctx, info){
+        newrelic.setControllerName('resetPassword', ['mutation'])
         //Check if passwords match
         if(args.password !== args.confirmPassword){
             throw new Error('The passwords do not match');
@@ -161,6 +167,7 @@ const mutations = {
         return updatedUser;
     },
     async updatePermissions(parent, args, ctx, info){
+        newrelic.setControllerName('updateUserPermissions', ['mutation'])
         //Check if logged in
         if(!ctx.request.userId){
             throw new Error('Must be logged in');
@@ -178,6 +185,7 @@ const mutations = {
         }, info)
     },
     async addToCart(parent, args, ctx, info) {
+        newrelic.setControllerName('addToCart', ['mutation'])
         // 1. Make sure they are signed in
         const { userId } = ctx.request;
         if (!userId) {
@@ -217,6 +225,7 @@ const mutations = {
         );
       },
     async removeFromCart(parent, args, ctx, info){
+        newrelic.setControllerName('removeFromCart', ['mutation'])
         // Find cart item
         const cartItem = await ctx.db.query.cartItem({
             where: {
@@ -238,6 +247,7 @@ const mutations = {
         }, info)
     },
     async createOrder(parent, args, ctx, info){
+        newrelic.setControllerName('createOrder', ['mutation'])
         // Query current user and make sure they are signed in
         const {userId} = ctx.request
         if(!userId) throw new Error('You must be logged in')
