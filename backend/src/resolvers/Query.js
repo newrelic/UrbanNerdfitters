@@ -1,3 +1,4 @@
+const newrelic = require('newrelic');
 const {forwardTo} = require('prisma-binding')
 const {hasPermission} = require('../utils')
 

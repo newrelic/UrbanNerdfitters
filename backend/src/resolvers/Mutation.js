@@ -1,3 +1,4 @@
+const newrelic = require('newrelic');
 const bycrpt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {randomBytes} = require('crypto')
