@@ -10,7 +10,9 @@
     "pm-start": "next build && pm2 start npm --name 'next' -- start",
     "test": "NODE_ENV=test jest --watch",
     "test-win": "SET NODE_ENV=test&& jest --watch",
-    "heroku-postbuild": "next build"
+    "heroku-postbuild": "next build",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "",
   "license": "ISC",
@@ -38,7 +40,8 @@
     "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^2.5.0",
     "styled-components": "^3.4.9",
-    "waait": "^1.0.2"
+    "waait": "^1.0.2",
+    "snyk": "^1.230.5"
   },
   "devDependencies": {
     "babel-jest": "^23.6.0",
@@ -114,5 +117,6 @@
         ]
       }
     }
-  }
+  },
+  "snyk": true
 }
